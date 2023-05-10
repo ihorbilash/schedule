@@ -1,0 +1,35 @@
+#eventForm {
+    display: flex;
+    flex-direction: column;
+  }
+  
+  #eventForm div {
+    margin-bottom: 10px;
+  }
+  
+  #eventForm label {
+    font-weight: bold;
+  }
+  
+  #eventForm input[type="text"],
+  #eventForm input[type="tel"],
+  #eventForm textarea {
+    padding: 5px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    width: 100%;
+  }
+  
+  #eventForm button[type="submit"] {
+    background-color: #4CAF50;
+    color: #fff;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+  }
+  
+  #eventForm button[type="submit"]:hover {
+    background-color: #45a049;
+  }
+  
