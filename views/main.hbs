@@ -7,20 +7,36 @@
   <link rel="stylesheet" href="/stylesheet.css">
   <link rel="stylesheet" href="/form.css">
   <link rel="stylesheet" href="/eventForm.css">
+  <link rel="stylesheet" href="/pagination.css">
 </head>
 
 <body>
   <div class="header">
-    <h1>Графік запису</h1>
+    <div class="dropdown">
+      <button class="dropdown-toggle" onclick="toggleDropdown()">withdraw</button>
+      <ul class="dropdown-menu">
+        <li onclick="getBusyData()">busy time</li>
+        <li onclick="getFreeData()">free time</li>
+        <li onclick="getAllData()">all time</li>
+      </ul>
+    </div>
+    <h1>Working schedule</h1>
+    <div class="pagination">
+      <div class="arrow left"></div>
+      <div class="arrow right"></div>
+    </div>
   </div>
 
   <div class="calendar">
 
     {{#each this}}
-    {{#if this.data}}
-    <div class="day hammer-icon"  id="day_{{@index}}" onclick="openConfigureModal('{{this.data}}')">
-      {{this.week_day}}
-      {{this.data}}
+    {{#if this.date}}
+    <div class="day ">
+      <div class="config-block">
+        {{this.week_day}}
+        {{this.date}}
+        <div class="config-btn" id="day_{{@index}}" onclick="openConfigureModal('{{this.date}}')">+</div>
+      </div>
     </div>
     {{/if}}
     {{/each}}
@@ -29,7 +45,7 @@
 
     <!-- Example events -->
     {{#each this}}
-    {{#if this.data}}
+    {{#if this.date}}
     {{>current_day free_date}}
     {{/if}}
     {{/each}}

@@ -1,0 +1,4 @@
+class GetRulesDto {
+    rule?: string
+}
+

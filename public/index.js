@@ -1,7 +1,20 @@
 
+function toggleDropdown() {
+  const dropdownMenu = document.querySelector('.dropdown-menu');
+  dropdownMenu.style.display = dropdownMenu.style.display === 'block' ? 'none' : 'block';
+}
+
+function getBusyData(){
+  window.location.href = `${mainLink}/api/create-schedule/all?rule=busy`
+}
+function getFreeData(){
+  window.location.href = `${mainLink}/api/create-schedule/all?rule=free`
+}
+function getAllData(){
+  window.location.href = `${mainLink}/api/create-schedule/all?rule=all`
+}
+
 //---- ADD EVENT-----
-
-
 
 function openModal(date) {
   var modal = document.getElementById("modal");
@@ -102,8 +115,6 @@ window.onclick = function (event) {
     modal.style.display = 'none';
   }
 };
-
-
 
 
 //-----------CONFIGURE DAY-----------

@@ -5,7 +5,7 @@ body {
 }
 
 .header {
-  background-color: #4285f4;
+  background-color: #095473;
   color: #fff;
   padding: 20px;
   text-align: center;
@@ -16,6 +16,8 @@ body {
   grid-template-columns: repeat(7, 1fr);
 }
 
+
+
 .day {
   border: 1px solid #ccc;
   padding: 10px;
@@ -23,16 +25,7 @@ body {
   position: relative;
 }
 
-.hammer-icon::after{
-  content: "";
-  display: inline-block;
-  width: 20px;
-  height: 20px;
-  background-color: #000;
-  border-radius: 50%;
-  position: relative;
-  transform: rotate(45deg);
-}
+
 
 .today {
   background-color: #4285f4;
@@ -51,13 +44,28 @@ body {
   display: flex;
   justify-content: space-between;
 }
+.config-block {
+  display: flex;
+  justify-content: space-between;
+}
+.config-btn {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  color: #fff;
+  background-color:#349B90;
+  border-radius: 10%;
+  cursor: pointer;
+  margin: 1%;
+  width: 10%;
+}
 
 .add-event-btn {
   display: flex;
   justify-content: center;
   align-items: center;
   color: #fff;
-  background-color: #4285f4;
+  background-color: #5B95AA;
   border-radius: 10%;
   cursor: pointer;
   margin: 1%;
@@ -141,6 +149,39 @@ body {
   max-width: 800px;
   margin: 0 auto;
   padding: 20px;
+}
+
+.dropdown {
+  position: absolute;
+ 
+}
+
+.dropdown-toggle {
+  background-color: #349B90;
+  border: none;
+  padding: 10%;
+  cursor: pointer;
+}
+
+.dropdown-menu {
+  position: absolute;
+  top: 100%;
+  left: 0;
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  background-color: #ceb083;
+  display: none;
+  font-size: small;
+  white-space: nowrap;
+}
+
+.dropdown-menu li {
+  padding: 10px;
+}
+
+.dropdown-menu li:hover {
+  background-color: #ccc;
 }
 
 

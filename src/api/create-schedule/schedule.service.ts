@@ -7,6 +7,7 @@ import { processingData } from "./common/proccesing-dbData-toEmptyData";
 import { FreeDate } from "../entity/free-date.entity";
 import { AddEventDto } from "./dto/add-event.dto";
 import { NotFoundException } from "@nestjs/common";
+import { transformDateToString } from "./common/transform-format";
 
 
 
@@ -14,34 +15,25 @@ export default {
     //  const dayRepository = myDataSource.getRepository(Day);
     //   const freeDateRepository = myDataSource.getRepository(FreeDate);
 
+    async getData(dto: GetRulesDto) {
 
-    async configureDayAndSaveToDB(req: Request) {
-        const { startHour, endHour, interval, current_date } = req.body
-        //  console.log("conf data=>", startHour, " ", endHour, " ", interval, " ", current_date)
-        await generateDaySchedule(startHour, endHour, interval, current_date);
-    },
-    async getDataFromDB() {
-        const dayRepository = myDataSource.getRepository(Day);
-        let data = await dayRepository.find({
-            relations: {
-                freeDates: true
-            }
-        });
-        const current_date = new Date();
-        let emtyWeek = generateEmptyWeek(current_date)
-        let week_data = processingData(data, emtyWeek)
-        //  console.log('data from db=>', week_data)
+        let data: Day[] = await this.getFromDbAndUseRule(dto.rule)
+        const formattedDate = transformDateToString(new Date());
+        const emtyWeek = generateEmptyWeek(formattedDate);
+        const week_data = processingData(data, emtyWeek);
         return week_data;
+    },
+
+    async configureDayAndSaveToDB(body: ConfigureDayDto) {
+        await generateDaySchedule(body);
     },
 
     async addEvent(body: AddEventDto): Promise<NotFoundException | { ok: true; }> {
         const freeDateRepository = myDataSource.getRepository(FreeDate);
-        // console.log("шо я шукаю в БД=>",body.date,"   -",new Date(body.date))
         let currentEvent = await freeDateRepository.findOneBy({ date: new Date(body.date) });
         if (currentEvent === null) {
             return new NotFoundException(`Not found current date where date=${body.date}`)
         }
-        // console.log("поверноув з бази=>",currentEvent)
         currentEvent.event = body.info;
         currentEvent.busy = true;
         await freeDateRepository.save(currentEvent);
@@ -58,6 +50,27 @@ export default {
         currentEvent.event = ''
         await freeDateRepository.save(currentEvent);
         return ({ ok: true })
+    },
+
+    async getFromDbAndUseRule(rule: string | undefined) {
+        const dayRepository = myDataSource.getRepository(Day);
+        let data = await dayRepository.find({
+            relations: { freeDates: true }
+        });
+        if (rule === 'busy') {
+            return data.map(item => {
+                item.freeDates = item.freeDates.filter(el => el.busy === true);
+                return item;
+            });
+        } else if (rule === 'free') {
+            return data.map(item => {
+                item.freeDates = item.freeDates.filter(el => el.busy === false);
+                return item;
+            });
+        } else {
+            return data;
+        }
+
     }
 
 

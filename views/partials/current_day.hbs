@@ -1,16 +1,15 @@
 <div class="day">
   {{#each this}}
-  <div class="event" style="background-color: {{#if busy}}#ed5977{{else}}#a2d678{{/if}};">
-   
-      <div class="event-time">{{time}}
-        <div class="button-block" >
+  <div class="event" style="background-color: {{#if busy}}#F2D2A2{{else}}#B9D6BC{{/if}};">
+
+    <div class="event-time">{{time}}
+      <div class="button-block">
         <div class="add-event-btn" onclick="openModal('{{date}}')">+</div>
         <div class="add-event-btn" onclick="showDeleteModal('{{date}}')">-</div>
-        </div>
       </div>
-      <div>{{event}}</div>
-      <!--  <div class="event-busy">{{busy}}</div>-->
-  
+    </div>
+    <div>{{event}}</div>
+
   </div>
 
   {{/each}}
