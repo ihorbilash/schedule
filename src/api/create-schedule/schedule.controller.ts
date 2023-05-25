@@ -7,12 +7,13 @@ import { NotFoundException } from "@nestjs/common";
 export default {
 
     async findAll(req: Request, res: Response) {
+       // console.log('query',req.query)
         try {
             const week_data: DayInterface[] = await scheduleService.getData(req.query)
             res.render('main.hbs', week_data)
         } catch (err) {
-            return new NotFoundException(`don't find data base`);
-        }
+            console.log(new NotFoundException(`some problem with db`)) 
+       }
 
     },
 
@@ -22,6 +23,7 @@ export default {
             res.json(result);
         } catch (err) {
             return new NotFoundException(`don't find evend on this time=>${err}`);
+           // console.log(new NotFoundException(`some problem with db`)) 
         }
     },
 

@@ -38,5 +38,5 @@ app.use('/api', restRouter)
 
 
 app.listen(process.env.LOCAL_PORT, () => {
-    console.log("Server has been started...");
+    console.log(`Server has been started on port=${process.env.LOCAL_PORT}..`);
 })

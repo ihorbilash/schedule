@@ -7,7 +7,7 @@ import { processingData } from "./common/proccesing-dbData-toEmptyData";
 import { FreeDate } from "../entity/free-date.entity";
 import { AddEventDto } from "./dto/add-event.dto";
 import { NotFoundException } from "@nestjs/common";
-import { transformDateToString } from "./common/transform-format";
+import { transformDateToString, transformStringToDate } from "./common/transform-format";
 
 
 
@@ -18,7 +18,8 @@ export default {
     async getData(dto: GetRulesDto) {
 
         let data: Day[] = await this.getFromDbAndUseRule(dto.rule)
-        const formattedDate = transformDateToString(new Date());
+        const current_date = dto.date ? transformStringToDate(dto.date) : new Date();
+        const formattedDate = transformDateToString(current_date);
         const emtyWeek = generateEmptyWeek(formattedDate);
         const week_data = processingData(data, emtyWeek);
         return week_data;
@@ -70,7 +71,6 @@ export default {
         } else {
             return data;
         }
-
     }
 
 

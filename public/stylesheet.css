@@ -151,6 +151,11 @@ body {
   padding: 20px;
 }
 
+.header-content {
+  display: flex;
+  align-items: center;
+}
+
 .dropdown {
   position: absolute;
  
@@ -178,6 +183,7 @@ body {
 
 .dropdown-menu li {
   padding: 10px;
+  display: inline-block;
 }
 
 .dropdown-menu li:hover {

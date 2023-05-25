@@ -7,11 +7,12 @@
   <link rel="stylesheet" href="/stylesheet.css">
   <link rel="stylesheet" href="/form.css">
   <link rel="stylesheet" href="/eventForm.css">
-  <link rel="stylesheet" href="/pagination.css">
+  <link rel="stylesheet" href="/calendar.css">
 </head>
 
 <body>
   <div class="header">
+
     <div class="dropdown">
       <button class="dropdown-toggle" onclick="toggleDropdown()">withdraw</button>
       <ul class="dropdown-menu">
@@ -20,10 +21,11 @@
         <li onclick="getAllData()">all time</li>
       </ul>
     </div>
+
     <h1>Working schedule</h1>
-    <div class="pagination">
-      <div class="arrow left"></div>
-      <div class="arrow right"></div>
+
+    <div class="small-calendar">
+      {{>small-calendar}}
     </div>
   </div>
 
@@ -51,69 +53,8 @@
     {{/each}}
 
 
-
-
-    <!-- add new event -->
-    <div class="modal" id="modal">
-      <div class="modal-content">
-        <span class="close-configure" onclick="closeModal()">&times;</span>
-        <h2>Додати задачу</h2>
-        <form id="eventForm">
-          <div>
-            <label for="name">Ім'я:</label>
-            <input type="text" id="user-name" name="name" required>
-          </div>
-          <div>
-            <label for="phone">Телефон:</label>
-            <input type="tel" id="user-phone" name="phone" required>
-          </div>
-          <div>
-            <label for="info">Інфо:</label>
-            <textarea id="user-info" name="info"></textarea>
-          </div>
-          <button type="submit">Відправити</button>
-        </form>
-      </div>
-    </div>
-
-
-    <!-- Modal delete event-->
-    <div id="deleteModal" class="modal-delete">
-      <form class="modal-content-delete" id="submit-delete">
-        <span class="close-delete" onclick="closeDeleteModule()">&times;</span>
-        <p>Ви впевнені шо хочете видалити цю подію?</p>
-        <button type="submit">Видалити</button>
-      </form>
-    </div>
-
-    <!-- Modal configure workday -->
-    <div id="configureModal" class="modal-configure">
-      <div class="modal-content-configure">
-        <span class="close-configure" onclick="closeConfigureModal()">&times;</span>
-        <h3>Розклад на день </h3>
-        <form id="configureForm">
-          <div>
-            <label for="startHour">Початкова година:</label>
-            <input type="number" id="startHour" name="startHour" min="0" max="23" required>
-          </div>
-          <div>
-            <label for="endHour">Кінцева година:</label>
-            <input type="number" id="endHour" name="endHour" min="0" max="23" required>
-          </div>
-          <div>
-            <h3>Скільки часу на одну подію :</h3>
-            <label for="hours">Години:</label>
-            <input type="number" id="hours" name="hours" min="0" max="23" required>
-
-            <label for="minutes">Хвилини:</label>
-            <input type="number" id="minutes" name="minutes" min="0" max="59" required>
-
-          </div>
-          <button type="submit">Зберегти</button>
-        </form>
-      </div>
-    </div>
-
+  </div>
+  {{>modals}}
 
 
 </body>

@@ -4,16 +4,30 @@ function toggleDropdown() {
   dropdownMenu.style.display = dropdownMenu.style.display === 'block' ? 'none' : 'block';
 }
 
-function getBusyData(){
-  window.location.href = `${mainLink}/api/create-schedule/all?rule=busy`
+function getBusyData() {
+  const currentURL = window.location.href;
+  const updatedURL = updateURLParameter(currentURL, 'rule', 'busy');
+  window.location.href = updatedURL
 }
-function getFreeData(){
-  window.location.href = `${mainLink}/api/create-schedule/all?rule=free`
+function getFreeData() {
+  const currentURL = window.location.href;
+  const updatedURL = updateURLParameter(currentURL, 'rule', 'free');
+  window.location.href = updatedURL
 }
-function getAllData(){
-  window.location.href = `${mainLink}/api/create-schedule/all?rule=all`
+function getAllData() {
+  const currentURL = window.location.href;
+  const updatedURL = updateURLParameter(currentURL, 'rule', 'all');
+  window.location.href = updatedURL
 }
 
+
+function updateURLParameter(url, param, value) {
+  const [baseUrl, queryParams] = url.split('?');
+  const params = new URLSearchParams(queryParams);
+  params.set(param, value);
+  const updatedUrl = `${baseUrl}?${params.toString()}`;
+  return updatedUrl;
+}
 //---- ADD EVENT-----
 
 function openModal(date) {
@@ -56,7 +70,7 @@ function submitFormAddEvent(date) {
       .then(response => {
         if (response.ok) {
           closeModal()
-          window.location.href = `${mainLink}/api/create-schedule/all`
+          location.reload()//window.location.href = `${mainLink}/api/create-schedule/all`
         }
       })
       .catch(error => {
@@ -95,7 +109,7 @@ function deleteEvent(date) {
       .then(response => {
         if (response.ok) {
           closeDeleteModule();
-          window.location.href = `${mainLink}/api/create-schedule/all`
+          location.reload()// window.location.href = `${mainLink}/api/create-schedule/all`
         }
       })
       .catch(error => {
@@ -115,6 +129,7 @@ window.onclick = function (event) {
     modal.style.display = 'none';
   }
 };
+
 
 
 //-----------CONFIGURE DAY-----------
@@ -158,7 +173,7 @@ function fillFormAndSendConfigure(current_date) {
       .then((response) => {
         if (response.ok) {
           closeConfigureModal()
-          window.location.href = `${mainLink}/api/create-schedule/all`
+          location.reload()  // window.location.href = `${mainLink}/api/create-schedule/all`
         }
 
       })
@@ -170,3 +185,44 @@ function fillFormAndSendConfigure(current_date) {
 }
 
 
+//------ date form -----
+
+
+
+function getDate() {
+  const input = document.getElementById('date-input');
+  const selectedDate = input.value;
+  const parts = selectedDate.split('-');
+  if (parts.length !== 3) {
+    console.log('Invalid date format');
+    return; 
+  }
+  const day = parts[2];
+  const month = parts[1];
+  const year = parts[0];
+  console.log('date=>',year," ",month," ",day)
+  const processedDate = day + '.' + month + '.' + year;
+  console.log('Selected date: ' + processedDate);
+  window.location.href = `${mainLink}/api/create-schedule/all?date=${processedDate}`
+}
+
+
+
+
+//-----------selectWeek-------
+
+function previousWeek() {
+  if (selectedWeek > 1) {
+    selectedWeek--;
+    updateWeekNumber();
+    updateCalendar();
+  }
+}
+
+// Перехід до наступної неділі
+function nextWeek() {
+  if (selected) {
+
+  }
+
+}

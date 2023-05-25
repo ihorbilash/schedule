@@ -12,6 +12,12 @@ export class Day {
   @Column({ type: 'boolean', default: true })
   availability!: boolean;
 
+ /* @Column({ type: 'integer' })
+  week!: number;
+
+  @Column({ type: 'integer' })
+  month!: number;
+*/
 
   @OneToMany(() => FreeDate, freeDate => freeDate.day, { cascade: true })
   freeDates!: FreeDate[];
